@@ -1,0 +1,6 @@
+dependencies:
+- name: base-chart
+  repository: oci://us-west1-docker.pkg.dev/helmexample/helm-base
+  version: 0.2.0
+digest: sha256:541b308c314d16297d5c96149e9e8e163a53f0fdf1966c04cbecea2c48fbe609
+generated: "2022-05-10T09:03:16.895562-07:00"
