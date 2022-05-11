@@ -5,7 +5,7 @@ kind: ServiceAccount
 metadata:
   name: app-chart-my-app
   labels:
-    helm.sh/chart: base-chart-0.1.0
+    helm.sh/chart: base-chart-0.2.0
     app.kubernetes.io/name: my-app
     app.kubernetes.io/instance: app-chart
     app.kubernetes.io/version: "1.16.0"
@@ -17,7 +17,7 @@ kind: Service
 metadata:
   name: app-chart-my-app
   labels:
-    helm.sh/chart: base-chart-0.1.0
+    helm.sh/chart: base-chart-0.2.0
     app.kubernetes.io/name: my-app
     app.kubernetes.io/instance: app-chart
     app.kubernetes.io/version: "1.16.0"
@@ -39,13 +39,15 @@ kind: Deployment
 metadata:
   name: app-chart-my-app
   labels:
-    helm.sh/chart: base-chart-0.1.0
+    helm.sh/chart: base-chart-0.2.0
     app.kubernetes.io/name: my-app
     app.kubernetes.io/instance: app-chart
     app.kubernetes.io/version: "1.16.0"
     app.kubernetes.io/managed-by: Helm
 spec:
   replicas: 1
+  strategy:
+    type:RollingUpdate
   selector:
     matchLabels:
       app.kubernetes.io/name: my-app
@@ -79,24 +81,3 @@ spec:
               port: http
           resources:
             {}
----
-# Source: app-chart/charts/base-chart/templates/tests/test-connection.yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: "app-chart-my-app-test-connection"
-  labels:
-    helm.sh/chart: base-chart-0.1.0
-    app.kubernetes.io/name: my-app
-    app.kubernetes.io/instance: app-chart
-    app.kubernetes.io/version: "1.16.0"
-    app.kubernetes.io/managed-by: Helm
-  annotations:
-    "helm.sh/hook": test
-spec:
-  containers:
-    - name: wget
-      image: busybox
-      command: ['wget']
-      args: ['app-chart-my-app:80']
-  restartPolicy: Never

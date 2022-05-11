@@ -1,6 +1,6 @@
 base-chart:
   deployment:
-    strategy: Recreate
+    strategy: RollingUpdate
   image:
     repository: nginx
     pullPolicy: IfNotPresent

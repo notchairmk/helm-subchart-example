@@ -12,7 +12,7 @@ spec:
     {{- if (eq .Values.deployment.strategy "Recreate")}}
     {{- fail "Update strategy must not be recreate"}}
     {{- end}}
-    type: {{- fail }}
+    type: {{- .Values.deployment.strategy }}
   selector:
     matchLabels:
       {{- include "base-chart.selectorLabels" . | nindent 6 }}
